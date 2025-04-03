@@ -8,13 +8,11 @@ XDG_CONFIG_HOME="/config"
 
 WORKDIR /config
 
-RUN addgroup -g 1000 jackett
-RUN adduser -D -u 1000 -G jackett jackett
 
+RUN addgroup --system --gid 1000 site && adduser --system --uid 1000 --gid 1000 site
 
 # Make directories
 RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/openvpn
-
 
 
 RUN cat '{ "BasePathOverride": "/jackett" }' > /config/Jackett/ServerConf.json
