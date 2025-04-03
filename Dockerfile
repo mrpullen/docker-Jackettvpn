@@ -8,7 +8,7 @@ XDG_CONFIG_HOME="/config"
 
 WORKDIR /config
 
-RUN add group -g 1000 jackett
+RUN addgroup -g 1000 jackett
 RUN adduser -D -u 1000 -G jackett jackett
 
 
