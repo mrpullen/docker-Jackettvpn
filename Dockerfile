@@ -5,12 +5,24 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV XDG_DATA_HOME="/config" \
 XDG_CONFIG_HOME="/config"
 
-WORKDIR /opt
 
-RUN usermod -u 99 nobody
+WORKDIR /config
+
+RUN add group -g 1000 jackett
+RUN adduser -D -u 1000 -G jackett jackett
+
 
 # Make directories
-RUN mkdir -p /blackhole /config/Jackett /etc/jackett
+RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/configs/ /config/configs/jackett /config/configs/jackett/Jackett /config/configs/jackett/openvpn
+
+USER jackett
+COPY /config/ServerConf.json /config/configs/jackett/Jackett/ServerConf.json
+
+RUN chown -R jackett:jackett /config/configs
+RUN chmod 755 -R /config/configs/Jackett
+
+
+WORKDIR /opt
 
 # Download Jackett
 RUN apt update \
@@ -64,6 +76,7 @@ ADD openvpn/ /etc/openvpn/
 ADD jackett/ /etc/jackett/
 
 RUN chmod +x /etc/jackett/*.sh /etc/jackett/*.init /etc/openvpn/*.sh /opt/Jackett/jackett
+
 
 EXPOSE 9117
 CMD ["/bin/bash", "/etc/openvpn/start.sh"]
