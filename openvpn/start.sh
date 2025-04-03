@@ -47,6 +47,13 @@ if [[ $VPN_ENABLED == "yes" ]]; then
 		echo "[WARNING] VPN_TYPE not set, as 'wireguard' or 'openvpn', defaulting to OpenVPN." | ts '%Y-%m-%d %H:%M:%.S'
 		export VPN_TYPE="openvpn"
 	fi
+ 	# If create_tun_device is set, create /dev/net/tun
+	if [[ "${CREATE_TUN_DEVICE,,}" == "true" ]] && [[ ! -f /dev/net/tun ]]; then
+	  mkdir -p /dev/net
+	  mknod /dev/net/tun c 10 200
+	  chmod 0666 /dev/net/tun
+	fi
+
 	# Create the directory to store OpenVPN or WireGuard config files
 	mkdir -p /config/${VPN_TYPE}
 	# Set permmissions and owner for files in /config/openvpn or /config/wireguard directory
