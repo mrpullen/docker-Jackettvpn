@@ -13,13 +13,14 @@ RUN adduser -D -u 1000 -G jackett jackett
 
 
 # Make directories
-RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/configs/ /config/configs/jackett /config/configs/jackett/Jackett /config/configs/jackett/openvpn
+RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/openvpn
 
 USER jackett
-COPY /config/ServerConf.json /config/configs/jackett/Jackett/ServerConf.json
 
-RUN chown -R jackett:jackett /config/configs
-RUN chmod 755 -R /config/configs/Jackett
+RUN cat '{ "BasePathOverride": "/jackett" }' > /config/Jackett/ServerConf.json
+
+RUN chown -R jackett:jackett /config
+RUN chmod 755 -R /config
 
 
 WORKDIR /opt

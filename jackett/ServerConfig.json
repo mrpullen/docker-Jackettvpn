@@ -7,7 +7,7 @@
   "BlackholeDir": null,
   "UpdateDisabled": true,
   "UpdatePrerelease": false,
-  "BasePathOverride": null,
+  "BasePathOverride": "/jackett",
   "OmdbApiKey": null,
   "OmdbApiUrl": null,
   "ProxyUrl": null,
