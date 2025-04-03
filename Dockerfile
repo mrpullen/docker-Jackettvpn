@@ -15,7 +15,7 @@ RUN adduser -D -u 1000 -G jackett jackett
 # Make directories
 RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/openvpn
 
-USER jackett
+
 
 RUN cat '{ "BasePathOverride": "/jackett" }' > /config/Jackett/ServerConf.json
 
@@ -78,6 +78,7 @@ ADD jackett/ /etc/jackett/
 
 RUN chmod +x /etc/jackett/*.sh /etc/jackett/*.init /etc/openvpn/*.sh /opt/Jackett/jackett
 
+USER jackett
 
 EXPOSE 9117
 CMD ["/bin/bash", "/etc/openvpn/start.sh"]
