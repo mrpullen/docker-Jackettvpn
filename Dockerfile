@@ -9,7 +9,7 @@ XDG_CONFIG_HOME="/config"
 WORKDIR /config
 
 
-RUN addgroup --system --gid 1000 site && adduser --system --uid 1000 --gid 1000 site
+RUN addgroup --system --gid 1000 jackett && adduser --system --uid 1000 --gid 1000 jackett
 
 # Make directories
 RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/openvpn
