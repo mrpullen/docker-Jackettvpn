@@ -14,8 +14,10 @@ RUN addgroup --system --gid 1000 jackett && adduser --system --uid 1000 --gid 10
 # Make directories
 RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/openvpn
 
+## RUN touch /config/Jackett/ServerConf.json
+## RUN cat '{ "BasePathOverride": "/jackett" }' > /config/Jackett/ServerConf.json
 
-RUN cat '{ "BasePathOverride": "/jackett" }' > /config/Jackett/ServerConf.json
+COPY jackett/ServerConf.json /config/Jackett/ServerConf.json
 
 RUN chown -R jackett:jackett /config
 RUN chmod 755 -R /config
