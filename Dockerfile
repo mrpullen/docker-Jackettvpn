@@ -17,7 +17,7 @@ RUN mkdir -p /blackhole /config/Jackett /etc/jackett /config/openvpn
 ## RUN touch /config/Jackett/ServerConf.json
 ## RUN cat '{ "BasePathOverride": "/jackett" }' > /config/Jackett/ServerConf.json
 
-COPY jackett/ServerConf.json /config/Jackett/ServerConf.json
+COPY jackett/ServerConfig.json /config/Jackett/ServerConfig.json
 
 RUN chown -R jackett:jackett /config
 RUN chmod 755 -R /config
