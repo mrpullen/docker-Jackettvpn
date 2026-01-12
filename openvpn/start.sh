@@ -247,13 +247,18 @@ fi
 IFS=',' read -ra name_server_list <<< "${NAME_SERVERS}"
 
 # process name servers in the list
-for name_server_item in "${name_server_list[@]}"; do
+#for name_server_item in "${name_server_list[@]}"; do
 	# strip whitespace from start and end of lan_network_item
-	name_server_item=$(echo "${name_server_item}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+	#name_server_item=$(echo "${name_server_item}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
 
-	echo "[INFO] Adding ${name_server_item} to resolv.conf" | ts '%Y-%m-%d %H:%M:%.S'
-	echo "nameserver ${name_server_item}" >> /etc/resolv.conf
-done
+	#echo "[INFO] Adding ${name_server_item} to resolv.conf" | ts '%Y-%m-%d %H:%M:%.S'
+	#echo "nameserver ${name_server_item}" >> /etc/resolv.conf
+#done
+
+echo "[INFO] Skipping resolv.conf modification under Kubernetes" | ts '%Y-%m-%d %H:%M:%.S'
+# Kubernetes mounts /etc/resolv.conf read-only, so we cannot modify it.
+# DNS should be configured via NAME_SERVERS or VPN_OPTIONS instead.
+
 
 if [[ -z "${PUID}" ]]; then
 	echo "[INFO] PUID not defined. Defaulting to root user" | ts '%Y-%m-%d %H:%M:%.S'
